@@ -1,0 +1,7 @@
+[{
+  "url": "https://docs.python.org/3/library/typing.html",
+  "regex": "[a-z]+"
+}, {
+  "url": "https://www.google.com/"
+}]
+

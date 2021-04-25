@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+fastapi-utils = "*"
+loguru = "*"
+requests = "*"
+aiokafka = "*"
+
+[dev-packages]
+autopep8 = "*"
+python-language-server = "*"
+jedi = "*"
+ipdb = "*"
+ipython = "*"
+pylint = "*"
+icecream = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-asyncio = "*"
+httpx = "*"
+
+[requires]
+python_version = "3.8"

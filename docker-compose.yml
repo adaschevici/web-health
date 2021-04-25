@@ -1,0 +1,57 @@
+version: '3.9'
+services:
+  producer:
+    build:
+      context: ./producer
+      dockerfile: Dockerfile
+    image: web-health-producer:latest
+    restart: unless-stopped
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    volumes:
+        - ./producer/:/usr/src/app
+    ports:
+        - 8002:8000
+    env_file:
+      - ./producer/.env
+
+  test_producer:
+    build:
+      context: ./producer
+      dockerfile: Dockerfile
+    image: web-health:latest
+    restart: unless-stopped
+    command: python -m pytest
+    volumes:
+        - ./producer/:/usr/src/app
+    ports:
+        - 8002:8000
+    env_file:
+      - ./producer/.env
+
+  consumer:
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    image: web-health-consumer:latest
+    restart: unless-stopped
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8001
+    volumes:
+        - ./consumer/:/usr/src/app
+    ports:
+        - 8003:8001
+    env_file:
+      - ./consumer/.env
+
+  test_consumer:
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    image: web-health:latest
+    restart: unless-stopped
+    command: python -m pytest
+    volumes:
+        - ./consumer/:/usr/src/app
+    ports:
+        - 8003:8001
+    env_file:
+      - ./consumer/.env
